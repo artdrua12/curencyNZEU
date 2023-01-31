@@ -44,7 +44,6 @@
             width="200px"
             small
             :value="startDate"
-            clearable
             label="Дата начала"
             readonly
             v-bind="attrs"
@@ -66,7 +65,6 @@
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             :value="endDate"
-            clearable
             label="Дата окончания"
             readonly
             v-bind="attrs"
@@ -83,19 +81,19 @@
       </v-menu>
     </v-card>
 
-    <v-card class="fullWidth"><myChart /></v-card>
+    <v-card class="fullWidth"><Chart /></v-card>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import myChart from "./Chart.vue";
+import Chart from "./Chart.vue";
 import moment from "moment";
 
 export default {
   name: "ChartCurrency",
   components: {
-    myChart,
+    Chart,
   },
   data() {
     return {
@@ -157,6 +155,12 @@ export default {
           name: "currency",
           value: this.currency,
         });
+
+        //обнуление графика
+        this.$store.commit("set", {
+          name: "forPeriod",
+          value: [],
+        });
       }
     },
     calculate() {
@@ -165,7 +169,7 @@ export default {
           name: "message",
           value: {
             color: "error",
-            text: "Выберете дату начала и конца",
+            text: "Необходимо выбрать даты начала и конца ",
             run: true,
           },
         });
@@ -182,9 +186,9 @@ export default {
         });
         return;
       }
-      console.log("curency", this.currency[0].Cur_ID);
+
       this.getTimePeriodCurrency({
-        cur_id: this.currency[0].Cur_ID,
+        cur_id: this?.currency[0]?.Cur_ID,
         startDate: this.startDate,
         endDate: this.endDate,
       });

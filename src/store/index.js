@@ -8,7 +8,7 @@ export default new Vuex.Store({
     currency: [],
     allCurrency: [],
     message: { color: 'info', text: 'default', run: false },
-    timePeriod: []
+    forPeriod: []
   },
   getters: {
     get: state => type => {
@@ -40,7 +40,7 @@ export default new Vuex.Store({
           `https://www.nbrb.by/API/ExRates/Rates/Dynamics/${obj.cur_id}?startDate=${obj.startDate}&endDate=${obj.endDate}`
         );
         const res = await response.json();
-        commit('set', { name: 'timePeriod', value: res });
+        commit('set', { name: 'forPeriod', value: res });
         commit('set', { name: 'message', value: { color: 'green', text: 'Массив курсов валют успешно загружен', run: true } });
       } catch (e) {
         commit('set', { name: 'message', value: { color: 'error', text: 'Ошибка запроса получения периода валют', run: true } });

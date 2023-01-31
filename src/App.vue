@@ -85,6 +85,7 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(470px, 1fr));
   grid-gap: 15px;
   background-color: rgba(116, 122, 120, 0.507);
+  overflow: hidden;
   &_padding {
     padding: 75px 0px 0px 0px;
   }
